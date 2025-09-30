@@ -6,7 +6,9 @@
     "start": "ng serve",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+    "test": "ng test",
+    "gh-pages": "ng build  --configuration production --base-href 'https://BloodPixel.github.io/bingo/'",
+    "gh-deploy": "npx angular-cli-ghpages --dir=dist/bingo/browser --no-silent"
   },
   "prettier": {
     "printWidth": 100,

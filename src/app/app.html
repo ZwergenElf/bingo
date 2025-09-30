@@ -1,6 +1,10 @@
 <div class="grid">
   @for (field of fields(); track $index) {
-  <div class="field" [style.backgroundColor]="field.obtainedBy" (click)="mark($index, COLOR.RED)">
+  <div
+    class="field"
+    [style.backgroundColor]="field.obtainedBy"
+    (click)="send(field.index)"
+  >
     {{ field.task }}
   </div>
   }
