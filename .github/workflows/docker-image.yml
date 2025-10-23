@@ -7,24 +7,26 @@ on:
     branches: [ "master" ]
 
 jobs:
-
   build:
-
     runs-on: ubuntu-latest
-
+    outputs:
+      image_tag: ${{ steps.set_tag.outputs.image_tag }}
     steps:
-    - uses: actions/checkout@v4
-    - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag bloodpixel/bingo:$(date +%s)
+      - uses: actions/checkout@v4
+      - name: Set image tag
+        id: set_tag
+        run: echo "image_tag=$(date +%s)" >> $GITHUB_OUTPUT
+      - name: Build the Docker image
+        run: docker build . --file Dockerfile --tag bloodpixel/bingo:${{ steps.set_tag.outputs.image_tag }}
+
   push:
     environment: master
     needs: build
     runs-on: ubuntu-latest
-
     steps:
-    - uses: actions/checkout@v4
-    - name: Push the Docker image
-      run: |
-        echo ${{ secrets.DOCKERHUB_PASSWORD }} | docker login -u ${{ secrets.DOCKERHUB_USERNAME }} --password-stdin
-        docker push bloodpixel/bingo:$(date +%s)
+      - uses: actions/checkout@v4
+      - name: Push the Docker image
+        run: |
+          echo ${{ secrets.DOCKERHUB_PASSWORD }} | docker login -u ${{ secrets.DOCKERHUB_USERNAME }} --password-stdin
+          docker push bloodpixel/bingo:${{ needs.build.outputs.image_tag }}
 
