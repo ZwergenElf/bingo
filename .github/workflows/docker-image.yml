@@ -23,6 +23,7 @@ jobs:
     steps:
     - uses: actions/checkout@v4
     - name: Push the Docker image
-    - run: echo ${{ secrets.DOCKERHUB_PASSWORD }} | docker login -u ${{ secrets.DOCKERHUB_USERNAME }} --password-stdin
-    - run: docker push bloodpixel/bingo:$(date +%s)
+      run: |
+        echo ${{ secrets.DOCKERHUB_PASSWORD }} | docker login -u ${{ secrets.DOCKERHUB_USERNAME }} --password-stdin \
+        docker push bloodpixel/bingo:$(date +%s)
 
