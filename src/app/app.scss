@@ -1,16 +1,29 @@
 * {
     background: black;
+    color: white;
 }
 
-.grid {
-    height: 100vh;
+#container {
     width: 100vw;
+    height: 100vh;
+    display: flex;
+}
+
+#grid {
+    width: 100%;
     aspect-ratio: 1 / 1;
     width: auto;
     display: grid;
     grid-template-columns: repeat(5, 1fr);
+    border: white 1px solid;
+
+
     .field {
         color: white;
         border: white 1px solid;
     }
+}
+
+#taskInput {
+    width: 100%;
 }

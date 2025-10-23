@@ -1,11 +1,22 @@
-<div class="grid">
-  @for (field of fields(); track $index) {
-  <div
-    class="field"
-    [style.backgroundColor]="field.obtainedBy"
-    (click)="send(field.index)"
-  >
-    {{ field.task }}
+<div id="container">
+  <div id="action-bar">
+    <button (click)="clear()">Clear</button>
   </div>
-  }
+  <div id="grid">
+    @if (fields().length > 0) { @for (field of fields(); track $index) {
+    <div class="field" [style.backgroundColor]="field.obtainedBy" (click)="send(field.index)">
+      {{ field.task }}
+    </div>
+    } } @else { Missing connection to database... }
+  </div>
+
+  <div id="input-area">
+    <textarea
+      id="taskInput"
+      [formControl]="taskInput"
+      placeholder="Separate tasks with a comma or line break..."
+      [rows]="fields().length"
+    ></textarea>
+    <button (click)="saveTasks()">Save Tasks</button>
+  </div>
 </div>

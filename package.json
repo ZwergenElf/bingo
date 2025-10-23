@@ -5,10 +5,9 @@
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
+    "build:prod": "ng build --configuration production",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test",
-    "gh-pages": "ng build  --configuration production --base-href 'https://BloodPixel.github.io/bingo/'",
-    "gh-deploy": "npx angular-cli-ghpages --dir=dist/bingo/browser --no-silent"
+    "test": "ng test"
   },
   "prettier": {
     "printWidth": 100,
@@ -31,6 +30,7 @@
     "@angular/platform-browser": "^20.3.0",
     "@angular/router": "^20.3.0",
     "rxjs": "~7.8.0",
+    "socket.io-client": "^4.8.1",
     "tslib": "^2.3.0",
     "zone.js": "~0.15.0"
   },

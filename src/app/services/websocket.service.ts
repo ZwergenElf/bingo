@@ -1,16 +1,21 @@
 import { Injectable } from '@angular/core';
 import { io, Socket } from 'socket.io-client';
 import { Field } from '../app';
+import { environment } from '../../environments/environment';
 
 @Injectable({ providedIn: 'root' })
 export class WebSocketService {
-  private socket: Socket = io('http://localhost:3000');
+  private socket: Socket = io(environment.socket);
 
-  sendField(field: Field['index']): void {
-    this.socket.emit('field', field);
+  sendField(index: Field['index']): void {
+    this.socket.emit('field', index);
   }
 
   onField(callback: (field: Omit<Field, 'task'>) => void): void {
     this.socket.on('field', callback);
+  }
+
+  onAssignColor(callback: (color: string) => void): void {
+    this.socket.on('assignColor', callback);
   }
 }
