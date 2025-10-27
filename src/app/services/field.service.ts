@@ -14,7 +14,7 @@ export class FieldService {
     // Implementation to fetch fields by grid ID
     return this._http
       .get<{ data: Array<Omit<Field, 'index'> & { id: number }> }>(
-        `${environment.api}/fields?grid_config_id=${gridId}`
+        `${environment.api}/fields?gridConfigId=${gridId}`
       )
       .pipe(
         map((res) =>
@@ -23,17 +23,21 @@ export class FieldService {
       );
   }
 
-  updateField(field: Partial<Field> & { index: number }): Observable<any> {
+  updateFields(fields: Array<Partial<Field> & { index: number }>): Observable<any> {
     // if index exists in grid then update else create new // handle in backend
     // index is unique and id
-    return this._http.patch(`${environment.api}/fields/${field.index + 1}`, {
-      task: field.task,
-      obtainedBy: field.obtainedBy,
-      grid_config_id: 1,
-    });
+    return this._http.put(
+      `${environment.api}/fields`,
+      fields.map((field) => ({
+        id: field.index + 1,
+        task: field.task,
+        obtainedBy: field.obtainedBy,
+        gridConfigId: 1,
+      }))
+    );
   }
 
   deleteAllFields() {
-    return this._http.delete(`${environment.api}/fields?grid_config_id=1`);
+    return this._http.delete(`${environment.api}/fields?gridConfigId=1`);
   }
 }

@@ -54,7 +54,15 @@ export class App {
     });
 
     this.taskInput.valueChanges.subscribe((tasks) => {
-      if (!tasks) return;
+      if (!tasks) {
+        this.fields.update((fields) => {
+          return fields.map((field) => ({
+            ...field,
+            task: '',
+          }));
+        });
+        return;
+      }
       const taskArray = tasks.split('\n').map((task) => task.trim());
       this.fields.update((fields) => {
         return fields.map((field, index) => ({
@@ -74,10 +82,17 @@ export class App {
     });
   }
 
-  send(index: number) {
+  send(index: number, myColor: COLOR | null) {
+    if (myColor === null) {
+      return;
+    }
+
     this._socketService.sendField(index);
     // update field in backend
-    this._fieldService.updateField({ index, obtainedBy: this.myColor }).pipe(take(1)).subscribe();
+    this._fieldService
+      .updateFields([{ index, obtainedBy: myColor }])
+      .pipe(take(1))
+      .subscribe();
   }
 
   clear() {
@@ -94,7 +109,7 @@ export class App {
           return this._fieldService.getFieldsByGridConfigId(gridConfig.id).pipe(
             take(1),
             map((fields) => {
-              const length = gridConfig.width * gridConfig.height;
+              const length = gridConfig.columns * gridConfig.rows;
               return Array.from({ length }, (_, index) => {
                 const existingField = fields.find((field) => field.index === index);
                 return existingField || { index, task: '', obtainedBy: null };
@@ -117,10 +132,8 @@ export class App {
     this.taskInput.setValue(tasks);
   }
 
-  saveTasks() {
+  saveTasks(fields: Array<Field>) {
     // Update all fields in backend
-    this.fields().forEach((field) => {
-      this._fieldService.updateField(field).pipe(take(1)).subscribe();
-    });
+    this._fieldService.updateFields(fields).pipe(take(1)).subscribe();
   }
 }

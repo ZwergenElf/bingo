@@ -4,7 +4,11 @@
   </div>
   <div id="grid">
     @if (fields().length > 0) { @for (field of fields(); track $index) {
-    <div class="field" [style.backgroundColor]="field.obtainedBy" (click)="send(field.index)">
+    <div
+      class="field"
+      [style.backgroundColor]="field.obtainedBy"
+      (click)="send(field.index, myColor)"
+    >
       {{ field.task }}
     </div>
     } } @else { Missing connection to database... }
@@ -17,6 +21,6 @@
       placeholder="Separate tasks with a comma or line break..."
       [rows]="fields().length"
     ></textarea>
-    <button (click)="saveTasks()">Save Tasks</button>
+    <button (click)="saveTasks(fields())">Save Tasks</button>
   </div>
 </div>
