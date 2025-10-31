@@ -1,10 +1,11 @@
-import { Component, signal } from '@angular/core';
+import { Component, computed, signal } from '@angular/core';
 import { WebSocketService } from './services/websocket.service';
 import { GridConfigService } from './services/grid-config.service';
 import { HttpClient, provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { BehaviorSubject, debounceTime, map, pipe, switchMap, take, tap } from 'rxjs';
 import { FieldService } from './services/field.service';
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { AuthService } from './services/auth.service';
 
 enum COLOR {
   RED = 'red',
@@ -26,19 +27,23 @@ export type Field = {
   selector: 'app-root',
   templateUrl: './app.html',
   styleUrl: './app.scss',
-  imports: [ReactiveFormsModule],
-  providers: [WebSocketService, GridConfigService, FieldService],
+  imports: [FormsModule, ReactiveFormsModule],
+  providers: [WebSocketService, GridConfigService, FieldService, AuthService],
 })
 export class App {
   protected readonly fields = signal<Array<Field>>([]);
   protected readonly taskInput = new FormControl('');
+  protected readonly username = '';
+  protected readonly password = '';
+  protected readonly isAuthenticated = signal(false);
   protected readonly COLOR = COLOR;
   protected myColor: COLOR | null = null;
 
   constructor(
     private _socketService: WebSocketService,
     private _gridService: GridConfigService,
-    private _fieldService: FieldService
+    private _fieldService: FieldService,
+    private _authService: AuthService
   ) {
     // Initialize fields based on grid configuration
     this.load();
@@ -135,5 +140,14 @@ export class App {
   saveTasks(fields: Array<Field>) {
     // Update all fields in backend
     this._fieldService.updateFields(fields).pipe(take(1)).subscribe();
+  }
+
+  login(username: string, password: string) {
+    this._authService
+      .login(username, password)
+      .pipe(take(1))
+      .subscribe((isAuth) => {
+        this.isAuthenticated.set(isAuth);
+      });
   }
 }

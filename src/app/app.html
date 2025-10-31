@@ -1,3 +1,4 @@
+@if (isAuthenticated()) {
 <div id="container">
   <div id="action-bar">
     <button (click)="clear()">Clear</button>
@@ -24,3 +25,8 @@
     <button (click)="saveTasks(fields())">Save Tasks</button>
   </div>
 </div>
+} @else {
+<input type="text" placeholder="Enter username" [(ngModel)]="username" />
+<input type="password" placeholder="Enter password" [(ngModel)]="password" />
+<button (click)="login(username, password)">Login</button>
+}
