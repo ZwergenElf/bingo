@@ -4,7 +4,7 @@ COPY package.json package-lock.json ./
 RUN npm install -g @angular/cli
 RUN npm i
 COPY . .
-RUN ng build --configuration production --output-path=dist/bingo/browser
+RUN ng build --configuration production
 
 FROM nginx:alpine AS production
 COPY --from=builder app/dist/bingo/browser /usr/share/nginx/html
