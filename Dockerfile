@@ -2,6 +2,7 @@ FROM node:20-alpine AS builder
 WORKDIR /app
 COPY package.json package-lock.json ./
 RUN npm i
+RUN npm install -g @angular/cli
 COPY . .
 RUN ng build --configuration production
 
