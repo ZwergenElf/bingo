@@ -53,4 +53,4 @@ jobs:
             docker pull bloodpixel/bingo:latest
             docker stop bingo || true
             docker rm bingo || true
-            docker run -d --name bingo -p 8080:80 bloodpixel/bingo:latest
+            docker run -d --name bingo -p 80:80 bloodpixel/bingo:latest
