@@ -42,7 +42,7 @@ jobs:
     needs: build
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-      - name: Deploy using ssh
+      - name: Pull using ssh
         uses: appleboy/ssh-action@master
         with:
           host: ${{ secrets.HOST }}
@@ -51,6 +51,3 @@ jobs:
           port: 22
           script: |
             docker pull bloodpixel/bingo:latest
-            docker stop bingo || true
-            docker rm bingo || true
-            docker run -d --name bingo -p 80:80 bloodpixel/bingo:latest
