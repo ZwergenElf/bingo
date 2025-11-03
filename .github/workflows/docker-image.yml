@@ -19,7 +19,7 @@ jobs:
         id: set_tag
         run: |
           # Use short git sha as tag (8 chars)
-          TAG=${GITHUB_SHA::8}
+          TAG=latest
           echo "image_tag=$TAG" >> $GITHUB_OUTPUT
 
       - name: Log in to Docker Hub
