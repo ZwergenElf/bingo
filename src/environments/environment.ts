@@ -1,4 +1,4 @@
 export const environment = {
-  api: 'http://194.164.197.22:3333',
-  socket: 'http://194.164.197.221:3000',
+  api: 'http://zwergen.site/api',
+  socket: 'http://zwergen.site/socket',
 };
