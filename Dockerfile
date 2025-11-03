@@ -7,6 +7,8 @@ COPY . .
 RUN ng build --configuration production --aot --output-hashing=all
 
 FROM nginx:alpine AS production
-COPY --from=builder app/dist/bingo /usr/share/nginx/html
+COPY --from=builder app/dist/bingo/browser /usr/share/nginx/html
 COPY nginx.conf /etc/nginx/nginx.conf
 EXPOSE 80
+ENTRYPOINT ["nginx", "-c", "/etc/nginx/nginx.conf"]
+CMD ["-g", "daemon off;"]
