@@ -17,7 +17,7 @@ export class GridConfigService {
 
   getFirstGrid(): Observable<GridConfig> {
     return this._http
-      .get<{ data: GridConfig[] }>(`194.164.197.221/grid-configs`)
+      .get<{ data: GridConfig[] }>(`${environment.api}/grid-configs`)
       .pipe(map((res) => res.data[0]));
   }
 }
