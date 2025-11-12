@@ -35,6 +35,7 @@
           },
           "configurations": {
             "production": {
+              "baseHref": "/bingo/",
               "budgets": [
                 {
                   "type": "initial",
