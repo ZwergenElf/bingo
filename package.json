@@ -5,7 +5,7 @@
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
-    "build:prod": "ng build --configuration production --aot --output-hashing=all --base-href /bingo/",
+    "build:prod": "ng build --configuration production --aot --output-hashing=all --baseHref /bingo/",
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
   },
