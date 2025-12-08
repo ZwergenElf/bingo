@@ -6,6 +6,6 @@ COPY . .
 RUN npm run build:prod
 
 FROM nginx:alpine AS production
-COPY --from=builder app/dist/bingo/browser /usr/share/nginx/html
+COPY --from=builder app/dist/bingo/browser /usr/share/nginx/html/bingo
 COPY nginx.conf /etc/nginx/nginx.conf
 EXPOSE 8080
