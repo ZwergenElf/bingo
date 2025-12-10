@@ -5,7 +5,10 @@ import { environment } from '../../environments/environment';
 
 @Injectable({ providedIn: 'root' })
 export class WebSocketService {
-  private socket: Socket = io(environment.socket, { reconnectionAttempts: 5 });
+  private socket: Socket = io(environment.socket, {
+    reconnectionAttempts: 5,
+    path: '/socket/socket.io',
+  });
 
   sendField(index: Field['index']): void {
     this.socket.emit('field', index);
