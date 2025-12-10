@@ -1,4 +1,4 @@
 export const environment = {
-  api: 'http://bingo-api:3333',
+  api: 'http://zwergen.site/api',
   socket: 'http://bingo-socket:3000',
 };
