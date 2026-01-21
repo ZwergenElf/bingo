@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, signal } from '@angular/core';
 import { environment } from '../../environments/environment';
-import { map, Observable } from 'rxjs';
+import { catchError, map, Observable } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
@@ -14,8 +14,9 @@ export class AuthService {
   }
 
   refresh(): Observable<boolean> {
-    return this._http
-      .post<{ data: boolean }>(`${environment.api}/auth/login`, undefined)
-      .pipe(map((res) => res.data));
+    return this._http.post<{ data: boolean }>(`${environment.api}/auth/login`, undefined).pipe(
+      map((res) => res.data),
+      catchError(() => [false])
+    );
   }
 }
