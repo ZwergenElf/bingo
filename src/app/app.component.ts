@@ -1,8 +1,8 @@
-import { Component, computed, signal } from '@angular/core';
+import { Component, computed, inject, provideAppInitializer, signal } from '@angular/core';
 import { WebSocketService } from './services/websocket.service';
 import { GridConfigService } from './services/grid-config.service';
 import { HttpClient, provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
-import { BehaviorSubject, debounceTime, map, pipe, switchMap, take, tap } from 'rxjs';
+import { BehaviorSubject, debounceTime, map, of, pipe, switchMap, take, tap } from 'rxjs';
 import { FieldService } from './services/field.service';
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AuthService } from './services/auth.service';
@@ -30,10 +30,10 @@ export type Field = {
   imports: [FormsModule, ReactiveFormsModule],
   providers: [WebSocketService, GridConfigService, FieldService, AuthService],
 })
-export class App {
+export class AppComponent {
   protected readonly fields = signal<Array<Field>>([]);
   protected readonly taskInput = new FormControl('');
-  protected readonly username = '';
+  protected readonly name = '';
   protected readonly password = '';
   protected readonly isAuthenticated = signal(false);
   protected readonly COLOR = COLOR;
@@ -142,9 +142,9 @@ export class App {
     this._fieldService.updateFields(fields).pipe(take(1)).subscribe();
   }
 
-  login(username: string, password: string) {
+  login(name: string, password: string) {
     this._authService
-      .login(username, password)
+      .login(name, password)
       .pipe(take(1))
       .subscribe((isAuth) => {
         this.isAuthenticated.set(isAuth);

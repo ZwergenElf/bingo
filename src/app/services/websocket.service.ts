@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { io, Socket } from 'socket.io-client';
-import { Field } from '../app';
+import { Field } from '../app.component';
 import { environment } from '../../environments/environment';
 
 @Injectable({ providedIn: 'root' })
