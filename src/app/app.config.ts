@@ -9,6 +9,8 @@ import {
 import { appInitInterceptor } from './interceptor/app-init.interceptor';
 import { AuthService } from './services/auth.service';
 import { interceptHttp } from './interceptor/http.interceptor';
+import { provideRouter } from '@angular/router';
+import { AppRoutes } from './app.routes';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -16,5 +18,6 @@ export const appConfig: ApplicationConfig = {
     provideZoneChangeDetection({ eventCoalescing: true }),
     provideAppInitializer(appInitInterceptor),
     provideHttpClient(withInterceptors([interceptHttp])),
+    provideRouter(AppRoutes),
   ],
 };

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { io, Socket } from 'socket.io-client';
-import { Field } from '../app.component';
 import { environment } from '../../environments/environment';
+import { Field } from '../game/game.component';
 
 @Injectable({ providedIn: 'root' })
 export class WebSocketService {

@@ -1,12 +1,10 @@
 import { Injectable } from '@angular/core';
-import { Field } from '../app.component';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 import { map, Observable } from 'rxjs';
+import { Field } from '../game/game.component';
 
-@Injectable({
-  providedIn: 'root',
-})
+@Injectable()
 export class FieldService {
   constructor(private _http: HttpClient) {}
 

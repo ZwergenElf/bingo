@@ -13,9 +13,9 @@ export class AuthService {
       .pipe(map((res) => res.data));
   }
 
-  refresh(): Observable<boolean> {
-    return this._http.post<{ data: boolean }>(`${environment.api}/auth/login`, undefined).pipe(
-      map((res) => res.data),
+  getStatus(): Observable<boolean> {
+    return this._http.get(`${environment.api}/auth/status`, undefined).pipe(
+      map(() => true),
       catchError(() => [false])
     );
   }
