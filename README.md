@@ -1,6 +1,5 @@
 # Bingo
 
-Simple UI for video game related bingo challenges. <br>
 Requires a setup on a server with all dependencies, to work properly.
 
 ## Dependencies:
